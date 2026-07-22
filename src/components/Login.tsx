@@ -148,11 +148,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </button>
           </form>
 
-          <div className="mt-8 text-center">
-            <span className="text-xs text-gray-400 dark:text-zinc-500 font-mono">
-              Demo Credentials: admin / admin123
-            </span>
-          </div>
+          
         </div>
       </motion.div>
     </div>
