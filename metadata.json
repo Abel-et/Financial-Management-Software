@@ -1,0 +1,6 @@
+{
+  "name": "CattleHaven",
+  "description": "A high-precision full-stack cattle parking management system at gate terminals, tracking arrivals, shifts, collections, outstanding balance due with amber warning states, and audit-ready Excel reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

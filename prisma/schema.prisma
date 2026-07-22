@@ -1,0 +1,59 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     String @default("ADMIN")
+}
+
+model Customer {
+  id             Int             @id @default(autoincrement())
+  fullName       String
+  phone          String
+  createdAt      DateTime        @default(now())
+  parkingRecords ParkingRecord[]
+}
+
+model ParkingRecord {
+  id             String    @id @default(uuid())
+  customerId     Int
+  customer       Customer  @relation(fields: [customerId], references: [id])
+  cattleCount    Int
+  pricePerCattle Float     // Float is used to represent Decimal in SQLite
+  parkingType    String    // DAY, NIGHT
+  status         String    // PARKED, COMPLETED
+  entryTime      DateTime  @default(now())
+  exitTime       DateTime?
+  totalAmount    Float
+  amountPaid     Float
+  balanceDue     Float
+  paymentMethod  String    // CASH, BANK
+  isFullyPaid    Boolean   @default(false)
+}
+
+model PaymentMethod {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  code      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  description String
+  amount      Float
+  category    String   // e.g. "WITHDRAWAL", "OPERATIONAL", "MAINTENANCE", "CATTLE_FEED", "OTHER"
+  date        DateTime @default(now())
+  recordedBy  String   // username who recorded it
+}
+
+

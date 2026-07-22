@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    container_name: kiduse_gate_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - JWT_SECRET=change_this_jwt_secret_in_production
+    volumes:
+      - sqlite_data:/app/prisma
+
+volumes:
+  sqlite_data:
